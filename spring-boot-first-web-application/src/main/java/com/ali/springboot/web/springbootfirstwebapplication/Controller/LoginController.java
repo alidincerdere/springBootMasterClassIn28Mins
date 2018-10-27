@@ -10,15 +10,11 @@ public class LoginController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public String index(Model model) {
+    public String login(Model model) {
 
         System.out.print("hey");
 
-        return "Hello World ";
-    }
-
-    public String dummyx() {
-        return  "   ";
+        return "Hello World Modified";
     }
 
 }
