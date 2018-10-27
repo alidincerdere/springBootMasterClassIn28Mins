@@ -9,12 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginController {
 
     @RequestMapping("/login")
-    @ResponseBody
     public String login(Model model) {
 
-        System.out.print("hey");
-
-        return "Hello World Modified";
+        return "login";
     }
 
 }
