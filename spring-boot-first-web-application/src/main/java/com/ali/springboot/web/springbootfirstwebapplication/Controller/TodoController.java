@@ -7,11 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * Created by adere on 28.10.2018.
  */
 @Controller
+@SessionAttributes("name")
 public class TodoController {
 
     @Autowired
@@ -20,7 +22,9 @@ public class TodoController {
     @RequestMapping(value = "/list-todos", method = RequestMethod.GET)
     public String showTodoListPage(Model model) {
 
-        model.addAttribute("todos", service.retrieveTodos("ali"));
+        String name = (String) model.asMap().get("name");
+
+        model.addAttribute("todos", service.retrieveTodos(name));
 
         return "list-todos";
     }
