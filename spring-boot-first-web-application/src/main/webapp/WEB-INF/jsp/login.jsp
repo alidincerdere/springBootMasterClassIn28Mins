@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Yahoo !!</title>
+    <title>Your First Web App</title>
 </head>
 <body>
 <font color="red"> ${message} </font>
