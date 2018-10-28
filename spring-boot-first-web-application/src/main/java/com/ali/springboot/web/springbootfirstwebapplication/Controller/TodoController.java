@@ -1,14 +1,12 @@
 package com.ali.springboot.web.springbootfirstwebapplication.Controller;
 
+import com.ali.springboot.web.springbootfirstwebapplication.Model.Todo;
 import com.ali.springboot.web.springbootfirstwebapplication.Service.LoginService;
 import com.ali.springboot.web.springbootfirstwebapplication.Service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
@@ -35,6 +33,7 @@ public class TodoController {
     @RequestMapping(value = "/add-todo", method = RequestMethod.GET)
     public String showAddTodoPage(Model model) {
 
+        model.addAttribute("todo", new Todo(0, (String) model.asMap().get("name"), "", new Date(), false));
         return "add-todo";
     }
 
@@ -46,8 +45,8 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
-    public String addTodo(Model model, @RequestParam String desc) {
-        service.addTodo((String) model.asMap().get("name"), desc, new Date(), false);
+    public String addTodo(Model model, @ModelAttribute Todo todo) {
+        service.addTodo((String) model.asMap().get("name"), todo.getDesc(), new Date(), false);
 
         return "redirect:/list-todos";
     }
