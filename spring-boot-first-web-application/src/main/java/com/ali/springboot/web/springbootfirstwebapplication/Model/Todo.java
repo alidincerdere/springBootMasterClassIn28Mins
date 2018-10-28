@@ -3,11 +3,13 @@ package com.ali.springboot.web.springbootfirstwebapplication.Model;
 /**
  * Created by adere on 28.10.2018.
  */
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Todo {
     private int id;
     private String user;
+    @Size(min = 6, message = "at least 6 characters needed")
     private String desc;
     private Date targetDate;
     private boolean isDone;

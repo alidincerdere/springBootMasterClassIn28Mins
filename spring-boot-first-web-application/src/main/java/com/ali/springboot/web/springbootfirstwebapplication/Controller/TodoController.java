@@ -6,8 +6,10 @@ import com.ali.springboot.web.springbootfirstwebapplication.Service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Date;
 
 /**
@@ -33,7 +35,7 @@ public class TodoController {
     @RequestMapping(value = "/add-todo", method = RequestMethod.GET)
     public String showAddTodoPage(Model model) {
 
-        model.addAttribute("todo", new Todo(0, (String) model.asMap().get("name"), "", new Date(), false));
+        model.addAttribute("todo", new Todo(0, (String) model.asMap().get("name"), "Default Desc", new Date(), false));
         return "add-todo";
     }
 
@@ -45,7 +47,13 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
-    public String addTodo(Model model, @ModelAttribute Todo todo) {
+    public String addTodo(Model model, @ModelAttribute @Valid Todo todo, BindingResult result) {
+
+        if(result.hasErrors()) {
+            return "add-todo";
+        }
+
+
         service.addTodo((String) model.asMap().get("name"), todo.getDesc(), new Date(), false);
 
         return "redirect:/list-todos";
