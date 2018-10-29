@@ -58,4 +58,33 @@ public class TodoController {
 
         return "redirect:/list-todos";
     }
+
+    @RequestMapping(value = "/update-todo", method = RequestMethod.GET)
+    public String updateTodoPage(@RequestParam int id, Model model) {
+
+        Todo todo = service.retrieveTodo(id);
+
+        model.addAttribute("todo", todo);
+
+        return "add-todo";
+    }
+
+    @RequestMapping(value = "/update-todo", method = RequestMethod.POST)
+    public String updateTodo(Model model, @ModelAttribute @Valid Todo todo, BindingResult result) {
+
+        if(result.hasErrors()) {
+            return "add-todo";
+        }
+
+        /*
+        Todo permTodo = service.retrieveTodo(todo.getId());
+
+        permTodo.setDesc(todo.getDesc());
+        */
+
+        todo.setUser((String)model.asMap().get("name"));
+        service.updateTodo(todo);
+
+        return "redirect:/list-todos";
+    }
 }
