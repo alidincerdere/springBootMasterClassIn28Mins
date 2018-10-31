@@ -1,10 +1,11 @@
 package com.ali.springboot.web.springbootfirstwebapplication.Controller;
 
 import com.ali.springboot.web.springbootfirstwebapplication.Model.Todo;
-import com.ali.springboot.web.springbootfirstwebapplication.Service.LoginService;
 import com.ali.springboot.web.springbootfirstwebapplication.Service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +20,6 @@ import java.util.Date;
  * Created by adere on 28.10.2018.
  */
 @Controller
-@SessionAttributes("name")
 public class TodoController {
 
     @Autowired
@@ -42,7 +42,14 @@ public class TodoController {
     }
 
     private String getLoggedInUserName(Model model) {
-        return (String) model.asMap().get("name");
+
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        }
+        return principal.toString();
     }
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.GET)
