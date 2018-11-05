@@ -1,5 +1,6 @@
 package com.adere.springboot.trial.springboottrial.Service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class WelcomeService {
 
+
+    @Value("${welcome.message}")
+    private String welcomeMessage;
+
     public String retrieveWelcomeMessage() {
-        return "Good Morning";
+        return welcomeMessage;
     }
 }
