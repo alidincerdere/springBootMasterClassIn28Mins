@@ -26,8 +26,16 @@ public class UserCommandLineRunner implements CommandLineRunner{
         repository.save(new User("ali","User"));
         repository.save(new User("zeynep", "Admin"));
         repository.save(new User("selma", "Admin"));
+        repository.save(new User("zeliha", "User"));
+        repository.save(new User("tuncer", "Admin"));
 
+        log.info("All Users;");
         for(User user: repository.findAll()) {
+            log.info(user.toString());
+        }
+
+        log.info("Admin users");
+        for(User user: repository.findByRole("Admin")) {
             log.info(user.toString());
         }
 
