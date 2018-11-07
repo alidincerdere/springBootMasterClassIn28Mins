@@ -1,7 +1,9 @@
 package com.adere.springboot.trial.springboottrial;
 
+import org.json.JSONException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -23,9 +25,10 @@ public class SurveyControllerIT {
 
     @LocalServerPort
     private int port;
+    
 
     @Test
-    public void test() {
+    public void test() throws JSONException {
 
         String url = "http://localhost:" + port + "/surveys/Survey1/questions/Question1";
 
@@ -46,6 +49,10 @@ public class SurveyControllerIT {
         System.out.println("Response: " + response.getBody());
 
         assertTrue(response.getBody().contains("Russia"));
+
+
+
+        JSONAssert.assertEquals("{correctAnswer: Russia}", response.getBody(),false);
 
     }
 }
