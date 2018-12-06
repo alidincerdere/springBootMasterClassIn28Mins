@@ -17,4 +17,8 @@ public class WelcomeService {
     public String retrieveWelcomeMessage() {
         return welcomeMessage;
     }
+
+    public String retrieveToken() {
+        return "hellotoken";
+    }
 }

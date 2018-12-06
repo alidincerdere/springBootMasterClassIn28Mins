@@ -1,9 +1,12 @@
 package com.adere.springboot.trial.springboottrial.Controller;
 
 import com.adere.springboot.trial.springboottrial.Configuration.BasicConfiguration;
+import com.adere.springboot.trial.springboottrial.Model.TokenReq;
 import com.adere.springboot.trial.springboottrial.Service.WelcomeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -36,5 +39,10 @@ public class WelcomeController {
         map.put("key", configuration.isValue());
 
         return map;
+    }
+
+    @RequestMapping(value = "/oauth/v2/tokens", method = RequestMethod.POST)
+    public String tokenHandler(@RequestBody TokenReq newQuestion) {
+        return welcomeService.retrieveToken();
     }
 }
