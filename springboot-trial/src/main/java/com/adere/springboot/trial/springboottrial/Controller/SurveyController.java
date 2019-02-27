@@ -42,7 +42,7 @@ public class SurveyController {
             return ResponseEntity.noContent().build();
         }
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("{id}").buildAndExpand(question.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(question.getId()).toUri();
 
 
         return ResponseEntity.created(location).build();
